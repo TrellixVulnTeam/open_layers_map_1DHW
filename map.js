@@ -14,7 +14,8 @@ useGeographic();
 
 
 // center map location
-var center_map = [115.832409,-32.004244];
+var center_map = checkTimeZoneIsInThePerth();
+console.log("center:" + center_map);
 var center_map_point = new Point(center_map);
 // button filters
 
@@ -22,6 +23,44 @@ var view = new View({
   center: center_map,
   zoom: 10,
 });
+
+function selectElement(id, valueToSelect) {    
+    let element = document.getElementById(id);
+    element.value = valueToSelect;
+}
+
+
+function checkTimeZoneIsInThePerth(){
+  var time_zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  var select = document.getElementById('state-select-map');
+
+  if(time_zone == "Australia/Perth"){
+    selectElement('state-select-map', 'WA');
+    time_zone = [115.832409,-31.9295999];
+  }
+  if(time_zone == "Australia/Melbourne"){
+    selectElement('state-select-map', 'VIC');
+    time_zone = [144.9631,-37.9136];
+  }
+  if(time_zone == "Australia/Sydney"){
+    selectElement('state-select-map', 'NSW');
+     time_zone = [151.2093,-33.4688];
+  }
+  if(time_zone == "Australia/Adelaide"){
+     selectElement('state-select-map', 'SA');
+     time_zone = [138.613870, -34.925040];
+  } else {
+    selectElement('state-select-map', 'WA');
+    time_zone = [115.832409,-31.9295999];
+  }
+
+  return time_zone;
+
+}
+
+checkTimeZoneIsInThePerth();
+
+
 
 
 function getStuff(){
@@ -120,6 +159,34 @@ function getStuff(){
           zoom:zoom
         })
       }
+  function changeView(){
+  var g = document.getElementById('state-select-map');
+  g.addEventListener("change", function(e){
+    if(e.currentTarget.value == "NSW"){
+    CenterMap([151.2093,-33.9088], 8);
+  
+  }
+  if(e.currentTarget.value == "WA"){
+    CenterMap([115.832409,-31.9295999], 10);
+  }
+  if(e.currentTarget.value == "ALL"){
+    CenterMap([131.036974,-25.3451132], 4);
+    view = new View({
+      center: [144.9631,-37.9136],
+      zoom: 10,
+    });
+  }
+ if(e.currentTarget.value == "VIC"){
+    CenterMap([144.9631,-37.9136], 10);
+  }
+  if(e.currentTarget.value == "SA"){
+    CenterMap([138.613870, -34.925040], 10);
+
+  } 
+  });
+}
+
+changeView();
       // create an overlay for popup
       function createOverlay(element){
           popup = new Overlay({

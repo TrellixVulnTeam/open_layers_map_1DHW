@@ -8,6 +8,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" defer></script>
 <link rel="stylesheet" href="./scss/style.scss">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;700&display=swap" rel="stylesheet">
+<div class="option-wrapper"><select id="state-select-map"> <option value="ALL">All</option> <option value="WA" selected>WA</option> <option value="NSW">NSW</option> <option value="SA">SA</option> <option value="VIC">VIC</option> </select></div>
 <div id="map" class="map" style="height:500px;">
   <div id="popup_0"></div>
   <div id="popup_1"></div>
@@ -68,3 +69,14 @@
   <div id="popup_56"></div>
 </div>
 <script src="map.js"></script>
+<style>
+.option-wrapper {
+    width: 80%;
+    margin: auto;
+}
+@media(max-width: 600px){
+  .option-wrapper {
+    margin-left: 15px;
+  } 
+}
+</style>
